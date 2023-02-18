@@ -6,6 +6,10 @@ function CreatePost(props) {
   async function handleCreatePost({ title, content }) {
     return createPost(title, content);
   }
+  async function handlePostCreated(_, form) {
+    await props.onPostCreated();
+    form.resetFields();
+  }
 
   return (
     <FormWrapper
@@ -13,7 +17,7 @@ function CreatePost(props) {
       layout="vertical"
       initialValues={{}}
       onSubmit={handleCreatePost}
-      onSuccess={props.onPostCreated}
+      onSuccess={handlePostCreated}
       autoComplete="off"
       style={{
         backgroundColor: 'rgba(0, 0, 0, .05)',

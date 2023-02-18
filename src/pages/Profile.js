@@ -35,7 +35,7 @@ function Profile() {
       {isAuthProfile ? (
         <Col span={8}>
           <Title level={2}>Update your profile</Title>
-          <ProfileForm profile={profile} onSubmit={updateProfile} onSuccess={fetchUser} />
+          <ProfileForm profile={profile} onSubmit={updateProfile} onSuccess={fetchUser} showSuccess />
         </Col>
       ) : null}
       <Col span={isAuthProfile ? 16 : 24}>

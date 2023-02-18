@@ -1,15 +1,18 @@
 import { Button, Form, notification } from 'antd';
 
-function FormContainer({ children, onSubmit, onSuccess, ...props }) {
+function FormContainer({ children, onSubmit, onSuccess, showSuccess, ...props }) {
   const [form] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
 
   async function onFinish(values) {
     try {
       const res = await onSubmit(values);
-      console.log(res);
-      if (res) form.resetFields();
-      if (res && typeof onSuccess === 'function') onSuccess(res);
+      if (res && typeof onSuccess === 'function') onSuccess(res, form);
+      if (showSuccess) api.success({
+        message: 'Your operation was successful',
+        key: 'submit-success',
+        duration: 2,
+      })
     } catch (err) {
       api.error({
         message: 'An error occurred',
