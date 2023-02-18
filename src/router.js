@@ -10,7 +10,7 @@ import App from './App';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />} loader={getAuthUser} shouldRevalidate={() => true}>
+    <Route id="app" path="/" element={<App />} loader={getAuthUser} shouldRevalidate={() => true}>
       <Route index element={<Index />} />
       <Route path="profile/:id" element={<Profile />} />
       <Route path="login" element={<Login />} />

@@ -1,38 +1,15 @@
-import { Button, Form, Input, notification, Typography } from 'antd';
+import { Input, Typography, Form } from 'antd';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import FormWrapper from './Form';
 
 const { Paragraph } = Typography;
 
 function AuthForm(props) {
   const navigate = useNavigate();
-
   const location = useLocation();
-  const [api, contextHolder] = notification.useNotification();
-
-  async function onFormSubmit(values) {
-    const success = await props.onSubmit(values).catch(err => api.error({
-      message: 'An error occurred',
-      description: <p>{err.message}</p>,
-      key: 'auth-server',
-      duration: 5,
-    }));
-    if (success) navigate("/");
-  }
-
-  function onFormError(errorInfo) {
-    const description = errorInfo.errorFields.map(err => (
-      <li key={err.name[0]}>{err.errors[0]}</li>
-    ))
-    api.error({
-      message: 'An error occurred',
-      description: <ul>{description}</ul>,
-      key: 'auth-form',
-      duration: 2000,
-    });
-  }
 
   return (
-    <Form
+    <FormWrapper
       name="auth"
       labelCol={{
         span: 8,
@@ -44,12 +21,10 @@ function AuthForm(props) {
         maxWidth: 600,
         textAlign: 'center'
       }}
-      initialValues={props.initialValues ?? {}}
-      onFinish={onFormSubmit}
-      onFinishFailed={onFormError}
+      onSubmit={props.onSubmit}
+      onSuccess={() => navigate("/")}
       autoComplete="off"
     >
-      {contextHolder}
       <Form.Item
         label="Email"
         name="email"
@@ -111,18 +86,7 @@ function AuthForm(props) {
           No account yet? <Link to="/signin">Sign up now!</Link>
         </Paragraph>
       )}
-
-      <Form.Item
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+    </FormWrapper>
   )
 }
 
