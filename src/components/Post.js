@@ -11,7 +11,7 @@ function Post({ post, onLike, onComment }) {
   const [isShowingComments, setIsShowingComments] = useState(false);
   const [newComment, setNewComment] = useState("");
 
-  const userLikesPost = likes.some(like => like.userId === authUser._id);
+  const userLikesPost = authUser ? likes.some(like => like.userId === authUser._id) : false;
 
   function handleCreateComment() {
     if (typeof newComment === "string" && newComment) onComment(post._id, newComment);
