@@ -1,8 +1,16 @@
+import AuthForm from "../components/AuthForm";
+import { login } from '../lib/api';
+
 function Login() {
+  async function handleSuccess({ email, password }) {
+    return login(email, password);
+  }
+
   return (
-    <div>
+    <>
       <h1>Se connecter</h1>
-    </div>
+      <AuthForm onSubmit={handleSuccess} />
+    </>
   )
 }
 
