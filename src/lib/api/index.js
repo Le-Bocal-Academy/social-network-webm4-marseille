@@ -62,7 +62,7 @@ export const createLike = async (postId) => {
   return res.success;
 };
 
-export const getAuthUser = async () => privateFetch('/user');
+export const getAuthUser = async () => privateFetch('/user').catch(() => null);
 
 export const updateProfile = async (body) => privateFetch('/user', {
   method: 'PUT',

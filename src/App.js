@@ -1,22 +1,17 @@
-import { Layout, Menu } from 'antd';
-import { Link, Outlet } from 'react-router-dom';
+import { Layout } from 'antd';
+import { Outlet } from 'react-router-dom';
+
+import Nav from './components/Nav';
 import './App.css';
 
 const { Header, Content, Footer } = Layout;
 
 function App() {
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Header className="App-header">
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['2']}
-          items={[
-            { key: 'login', label: <Link to="/login">Log in</Link> },
-            { key: 'signin', label: <Link to="/signin">Sign in</Link> },
-          ]}
-        />
+        <Nav />
       </Header>
       <Content className="App-content">
         <Outlet />
