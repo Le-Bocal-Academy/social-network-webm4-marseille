@@ -75,3 +75,16 @@ export const logout = () => {
   clearToken();
   return true;
 };
+
+export const fetchAllPostsByUser = async (userId) => {
+  const posts = [];
+  const limit = 20;
+  let page = 1;
+  while (posts.length % limit === 0) {
+    const res = await getPosts({ page, limit });
+    posts.push(res.posts);
+    page++;
+  }
+
+  return posts.filter(post => post.userId === userId);
+};
