@@ -77,14 +77,14 @@ export const logout = () => {
 };
 
 export const fetchAllPostsByUser = async (userId) => {
-  const posts = [];
+  const allPosts = [];
   const limit = 20;
-  let page = 1;
-  while (posts.length % limit === 0) {
+  let page = 0;
+  while (allPosts.length % limit === 0) {
     const res = await getPosts({ page, limit });
-    posts.push(res.posts);
+    allPosts.push(...res.posts);
     page++;
   }
 
-  return posts.filter(post => post.userId === userId);
+  return allPosts.filter((post) => post.userId === userId);
 };
