@@ -18,13 +18,13 @@ function Index() {
 
   return (
     <>
-      <h1>Welcome</h1>
+      <h1>Welcome to your social network</h1>
       <Layout style={{ width: '100%'}}>
         <Layout.Sider theme="light" width={320} style={{ padding: 16 }}>
           {authUser ? <CreatePost onPostCreated={fetchPosts} /> : <Link to="/login">Log in to create a new post</Link>}
         </Layout.Sider>
         <Layout.Content style={{ padding: '0 24px' }}>
-          <PostList posts={posts} />
+          <PostList posts={posts} onChange={fetchPosts} />
         </Layout.Content>
       </Layout>
     </>
