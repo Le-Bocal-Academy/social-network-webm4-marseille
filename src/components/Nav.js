@@ -14,7 +14,7 @@ function Nav() {
   };
 
   const items = [{ key: '/', label: "Home" }].concat(authUser ? [
-    { key: '/profile', label: "Profile" },
+    { key: '/profile/' + authUser._id, label: "Profile" },
     { key: '/logout', label: "Log out" },
   ] : [
     { key: '/login', label: "Log in" },
