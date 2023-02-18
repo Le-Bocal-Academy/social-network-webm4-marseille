@@ -1,16 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { fetchAllPostsByUser, getUser } from '../lib/api';
+import { Col, Row, Typography } from 'antd';
+
+import { fetchAllPostsByUser, getUser, updateProfile } from '../lib/api';
 import PostList from '../containers/PostList';
-import { Col, Row } from 'antd';
+import ProfileForm from '../components/ProfileForm';
+
+const { Title } = Typography;
 
 function Profile() {
   const params = useParams();
   const [profile, setProfile] = useState();
   const [posts, setPosts] = useState();
 
+  const isAuthProfile = profile ? params.id === profile._id : false;
+
+  function fetchUser() {
+    getUser(params.id).then(user => setProfile(user));
+  }
+  
   useEffect(() => {
-    if (!profile) getUser(params.id).then(user => setProfile(user));
+    if (!profile) getUser(params.id).then(user => setProfile(user));;
   }, [profile, params.id]);
 
   useEffect(() => {
@@ -21,15 +31,18 @@ function Profile() {
   }, [profile, posts]);
 
   return profile ? (
-      <Row gutter={16}>
-        <Col span={12}>
-          <h1>{profile.firstname} {profile.lastname}'s profile</h1>
-
+    <Row gutter={16} align="top">
+      {isAuthProfile ? (
+        <Col span={8}>
+          <Title level={2}>Update your profile</Title>
+          <ProfileForm profile={profile} onSubmit={updateProfile} onSuccess={fetchUser} />
         </Col>
-        <Col span={12}>
-          <PostList posts={posts || []} />
-        </Col>
-      </Row>
+      ) : null}
+      <Col span={isAuthProfile ? 16 : 24}>
+        <Title level={2}>{profile.firstname} {profile.lastname}'s posts</Title>
+        <PostList posts={posts || []} />
+      </Col>
+    </Row>
   ) : null;
 }
 

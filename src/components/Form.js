@@ -1,6 +1,6 @@
 import { Button, Form, notification } from 'antd';
 
-function FormContainer({ children, onSubmit, onSuccess, initialValues = {}, ...props }) {
+function FormContainer({ children, onSubmit, onSuccess, ...props }) {
   const [form] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
 
