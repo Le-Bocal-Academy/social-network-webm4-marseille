@@ -3,14 +3,17 @@ import Index from './pages/Index';
 import Login from './pages/Login';
 import Signin from './pages/Signin';
 import Profile from './pages/Profile';
+import App from './App';
 
-export const router = createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
-      <Route path="/" index element={<Index />} />
-      <Route path="/profile/:id" element={<Profile />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signin" element={<Signin />} />
-    </>
+    <Route path="/" element={<App />}>
+      <Route index element={<Index />} />
+      <Route path="profile/:id" element={<Profile />} />
+      <Route path="login" element={<Login />} />
+      <Route path="signin" element={<Signin />} />
+    </Route>
   )
 );
+
+export default router;
