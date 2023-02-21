@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+import { createHashRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
 import { getAuthUser } from './lib/api';
 import Index from './pages/Index';
@@ -8,7 +8,7 @@ import Signin from './pages/Signin';
 import Profile from './pages/Profile';
 import App from './App';
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route id="app" path="/" element={<App />} loader={getAuthUser} shouldRevalidate={() => true}>
       <Route index element={<Index />} />
